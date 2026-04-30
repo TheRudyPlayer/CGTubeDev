@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CGTube | Chicken Gun Oficial</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+:root {
+    --bg: #0f0f0f;
+    --card: #181818;
+    --hover: #272727;
+    --text: #fff;
+    --sub: #aaa;
+    --red: #ff0000;
+    --yellow: #f1c40f;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* HEADER */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: var(--bg);
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo i {
+    color: var(--red);
+    font-size: 26px;
+}
+
+.logo span {
+    color: var(--yellow);
+}
+
+/* BUSCADOR */
+.search {
+    display: flex;
+    align-items: center;
+    background: #222;
+    border-radius: 30px;
+    padding: 8px 15px;
+    width: 40%;
+}
+
+.search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    width: 100%;
+    font-size: 14px;
+}
+
+.search i {
+    color: #aaa;
+}
+
+/* HOME */
+.home {
+    margin-top: 80px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.card {
+    cursor: pointer;
+}
+
+.thumb {
+    width: 100%;
+    height: 140px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card h3 {
+    font-size: 14px;
+    margin: 8px 0 5px;
+}
+
+.card p {
+    font-size: 12px;
+    color: var(--sub);
+}
+
+/* PLAYER */
+.player-view {
+    display: none;
+    margin-top: 80px;
+    padding: 20px;
+    grid-template-columns: 1fr 350px;
+    gap: 20px;
+}
+
+.player-box {
+    position: relative;
+    padding-bottom: 56%;
+}
+
+.player-box iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.side-video {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.side-video:hover {
+    background: var(--hover);
+}
+
+.side-thumb {
+    width: 120px;
+    height: 70px;
+    background-size: cover;
+    border-radius: 8px;
+}
+
+@media(max-width:1000px){
+    .player-view {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <i class="fa-brands fa-youtube"></i> CG<span>Tube</span>
+    </div>
+
+    <div class="search">
+        <input type="text" id="searchInput" placeholder="Buscar en CGTube...">
+        <i class="fas fa-search"></i>
+    </div>
+
+    <div style="width:40px;"></div>
+</header>
+
+<!-- HOME -->
+<div class="home" id="home"></div>
+
+<!-- PLAYER -->
+<div class="player-view" id="playerView">
+    <div>
+        <div class="player-box">
+            <iframe id="player" src="" allowfullscreen></iframe>
+        </div>
+        <h2 id="title"></h2>
+    </div>
+
+    <div class="sidebar" id="sidebar"></div>
+</div>
+
+<script>
+
+// 🎬 VIDEOS REALES
+const videos = [
+    {
+        id: "HE1Yn_H4YpI",
+        title: "CHICKEN GUN 3.0.0 (OFFICIAL TRAILER)",
+        channel: "Chicken Gun Official"
+    },
+    {
+        id: "hLSAKlDYpKQ",
+        title: "Chicken Gun Gameplay - Acción intensa",
+        channel: "Gaming Pro"
+    },
+    {
+        id: "DLskuafhcsg",
+        title: "Nueva actualización Chicken Gun 🔥",
+        channel: "CG Community"
+    }
+];
+
+// 🏠 RENDER HOME
+function renderVideos(list){
+    const home = document.getElementById("home");
+    home.innerHTML = "";
+
+    list.forEach(v => {
+        home.innerHTML += `
+        <div class="card" onclick="playVideo('${v.id}','${v.title}')">
+            <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${v.id}/mqdefault.jpg')"></div>
+            <h3>${v.title}</h3>
+            <p>${v.channel}</p>
+        </div>`;
+    });
+}
+
+renderVideos(videos);
+
+// 🔍 BUSCADOR FUNCIONAL
+document.getElementById("searchInput").addEventListener("input", function(){
+    const value = this.value.toLowerCase();
+
+    const filtered = videos.filter(v =>
+        v.title.toLowerCase().includes(value) ||
+        v.channel.toLowerCase().includes(value)
+    );
+
+    renderVideos(filtered);
+});
+
+// ▶️ REPRODUCIR
+function playVideo(id, title){
+    document.getElementById("home").style.display = "none";
+    document.getElementById("playerView").style.display = "grid";
+
+    document.getElementById("player").src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    document.getElementById("title").innerText = title;
+
+    loadSidebar();
+}
+
+// 📺 SIDEBAR
+function loadSidebar(){
+    const sidebar = document.getElementById("sidebar");
+    sidebar.innerHTML = "";
+
+    videos.forEach(v => {
+        sidebar.innerHTML += `
+        <div class="side-video" onclick="playVideo('${v.id}','${v.title}')">
+            <div class="side-thumb" style="background-image:url('https://img.youtube.com/vi/${v.id}/mqdefault.jpg')"></div>
+            <div>
+                <h4 style="margin:0;font-size:13px;">${v.title}</h4>
+                <p style="margin:0;font-size:11px;color:#aaa;">${v.channel}</p>
+            </div>
+        </div>`;
+    });
+}
+
+</script>
+
+</body>
+</html>
