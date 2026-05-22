@@ -8,165 +8,249 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-:root {
-    --bg: #0f0f0f;
-    --card: #181818;
-    --hover: #272727;
-    --text: #fff;
-    --sub: #aaa;
-    --red: #ff0000;
-    --yellow: #f1c40f;
+
+:root{
+    --bg:#0f0f0f;
+    --card:#181818;
+    --hover:#272727;
+    --text:#fff;
+    --sub:#aaa;
+    --red:#ff0000;
+    --yellow:#f1c40f;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
 }
 
 /* HEADER */
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    background: var(--bg);
-    z-index: 1000;
+
+header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 20px;
+    position:fixed;
+    top:0;
+    width:100%;
+    background:var(--bg);
+    z-index:1000;
+    border-bottom:1px solid #222;
 }
 
-.logo {
-    font-size: 22px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    gap:8px;
 }
 
-.logo i {
-    color: var(--red);
-    font-size: 26px;
+.logo i{
+    color:var(--red);
+    font-size:26px;
 }
 
-.logo span {
-    color: var(--yellow);
+.logo span{
+    color:var(--yellow);
 }
 
-/* BUSCADOR */
-.search {
-    display: flex;
-    align-items: center;
-    background: #222;
-    border-radius: 30px;
-    padding: 8px 15px;
-    width: 40%;
+/* SEARCH */
+
+.search{
+    display:flex;
+    align-items:center;
+    background:#222;
+    border-radius:30px;
+    padding:8px 15px;
+    width:40%;
 }
 
-.search input {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: white;
-    width: 100%;
-    font-size: 14px;
+.search input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:white;
+    width:100%;
+    font-size:14px;
 }
 
-.search i {
-    color: #aaa;
+.search i{
+    color:#aaa;
 }
 
 /* HOME */
-.home {
-    margin-top: 80px;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
+
+.home{
+    margin-top:80px;
+    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+    gap:18px;
 }
 
-.card {
-    cursor: pointer;
+.card{
+    cursor:pointer;
+    transition:0.2s;
 }
 
-.thumb {
-    width: 100%;
-    height: 140px;
-    border-radius: 12px;
-    background-size: cover;
-    background-position: center;
+.card:hover{
+    transform:scale(1.02);
 }
 
-.card h3 {
-    font-size: 14px;
-    margin: 8px 0 5px;
+.thumb{
+    width:100%;
+    height:145px;
+    border-radius:12px;
+    background-size:cover;
+    background-position:center;
+    background-color:#222;
 }
 
-.card p {
-    font-size: 12px;
-    color: var(--sub);
+.card h3{
+    font-size:14px;
+    margin:8px 0 5px;
+    line-height:1.4;
+}
+
+.card p{
+    font-size:12px;
+    color:var(--sub);
 }
 
 /* PLAYER */
-.player-view {
-    display: none;
-    margin-top: 80px;
-    padding: 20px;
-    grid-template-columns: 1fr 350px;
-    gap: 20px;
+
+.player-view{
+    display:none;
+    margin-top:80px;
+    padding:20px;
+    grid-template-columns:1fr 350px;
+    gap:20px;
 }
 
-.player-box {
-    position: relative;
-    padding-bottom: 56%;
+.player-box{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    background:black;
+    border-radius:12px;
+    overflow:hidden;
 }
 
-.player-box iframe {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+.player-box iframe{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    border:none;
 }
 
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.video-title{
+    margin-top:15px;
+    font-size:22px;
+    line-height:1.4;
 }
 
-.side-video {
-    display: flex;
-    gap: 10px;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 10px;
+/* SIDEBAR */
+
+.sidebar{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-.side-video:hover {
-    background: var(--hover);
+.side-video{
+    display:flex;
+    gap:10px;
+    cursor:pointer;
+    padding:6px;
+    border-radius:10px;
+    transition:0.2s;
 }
 
-.side-thumb {
-    width: 120px;
-    height: 70px;
-    background-size: cover;
-    border-radius: 8px;
+.side-video:hover{
+    background:var(--hover);
 }
+
+.side-thumb{
+    width:120px;
+    min-width:120px;
+    height:70px;
+    background-size:cover;
+    background-position:center;
+    border-radius:8px;
+    background-color:#222;
+}
+
+.side-info h4{
+    margin:0;
+    font-size:13px;
+    line-height:1.4;
+}
+
+.side-info p{
+    margin-top:5px;
+    font-size:11px;
+    color:var(--sub);
+}
+
+/* LOADING */
+
+.loading{
+    text-align:center;
+    padding:50px;
+    color:#aaa;
+    font-size:18px;
+}
+
+/* MOBILE */
 
 @media(max-width:1000px){
-    .player-view {
-        grid-template-columns: 1fr;
+
+    .player-view{
+        grid-template-columns:1fr;
     }
+
+    .search{
+        width:55%;
+    }
+
 }
+
+@media(max-width:700px){
+
+    .home{
+        grid-template-columns:1fr;
+    }
+
+    .search{
+        width:50%;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
+
     <div class="logo">
-        <i class="fa-brands fa-youtube"></i> CG<span>Tube</span>
+        <i class="fa-brands fa-youtube"></i>
+        CG<span>Tube</span>
     </div>
 
     <div class="search">
@@ -175,100 +259,222 @@ header {
     </div>
 
     <div style="width:40px;"></div>
+
 </header>
 
 <!-- HOME -->
-<div class="home" id="home"></div>
+
+<div class="home" id="home">
+
+    <div class="loading">
+        Cargando videos...
+    </div>
+
+</div>
 
 <!-- PLAYER -->
+
 <div class="player-view" id="playerView">
+
     <div>
+
         <div class="player-box">
-            <iframe id="player" src="" allowfullscreen></iframe>
+            <iframe
+            id="player"
+            src=""
+            allowfullscreen
+            allow="autoplay">
+            </iframe>
         </div>
-        <h2 id="title"></h2>
+
+        <h2 class="video-title" id="title"></h2>
+
     </div>
 
     <div class="sidebar" id="sidebar"></div>
+
 </div>
 
 <script>
 
-// 🎬 VIDEOS REALES
+// 🎬 SOLO IDS DE VIDEOS
+
 const videos = [
-    {
-        id: "HE1Yn_H4YpI",
-        title: "Los MODELOS OCULTOS de Chicken Gun que Nadie conoce...",
-        channel: "TheRudyPlayer"
-    },
-    {
-        id: "hLSAKlDYpKQ",
-        title: "Como Luciria Cada Mapa De Chicken Gun Con Diferentes Ambientaciones?",
-        channel: "Matias Channel xD"
-    },
-    {
-        id: "DLskuafhcsg",
-        title: "¿Por qué NO agregan nuevos modos en Chicken Gun?",
-        channel: "Spy_Gaming150"
-    }
+
+    "HE1Yn_H4YpI",
+    "hLSAKlDYpKQ",
+    "DLskuafhcsg"
+
 ];
 
-// 🏠 RENDER HOME
-function renderVideos(list){
-    const home = document.getElementById("home");
-    home.innerHTML = "";
 
-    list.forEach(v => {
-        home.innerHTML += `
-        <div class="card" onclick="playVideo('${v.id}','${v.title}')">
-            <div class="thumb" style="background-image:url('https://img.youtube.com/vi/${v.id}/mqdefault.jpg')"></div>
-            <h3>${v.title}</h3>
-            <p>${v.channel}</p>
-        </div>`;
-    });
+// 📦 VIDEOS CARGADOS
+
+let loadedVideos = [];
+
+
+// 📥 CARGAR INFO AUTOMÁTICA
+
+async function loadVideos(){
+
+    loadedVideos = [];
+
+    for(const id of videos){
+
+        try{
+
+            const url =
+            `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`;
+
+            const response = await fetch(url);
+
+            const data = await response.json();
+
+            loadedVideos.push({
+
+                id:id,
+
+                title:data.title,
+
+                channel:data.author_name,
+
+                thumb:`https://img.youtube.com/vi/${id}/mqdefault.jpg`
+
+            });
+
+        }catch(error){
+
+            console.log("Error cargando:", id);
+
+        }
+
+    }
+
+    renderVideos(loadedVideos);
+
 }
 
-renderVideos(videos);
 
-// 🔍 BUSCADOR FUNCIONAL
-document.getElementById("searchInput").addEventListener("input", function(){
-    const value = this.value.toLowerCase();
+// 🏠 RENDER HOME
 
-    const filtered = videos.filter(v =>
-        v.title.toLowerCase().includes(value) ||
-        v.channel.toLowerCase().includes(value)
-    );
+function renderVideos(list){
 
-    renderVideos(filtered);
-});
+    const home = document.getElementById("home");
 
-// ▶️ REPRODUCIR
-function playVideo(id, title){
+    home.innerHTML = "";
+
+    if(list.length === 0){
+
+        home.innerHTML = `
+        <div class="loading">
+            No se encontraron videos
+        </div>
+        `;
+
+        return;
+
+    }
+
+    list.forEach(v => {
+
+        home.innerHTML += `
+
+        <div class="card"
+        onclick="playVideo('${v.id}', \`${v.title}\`)">
+
+            <div class="thumb"
+            style="background-image:url('${v.thumb}')">
+            </div>
+
+            <h3>${v.title}</h3>
+
+            <p>${v.channel}</p>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+// ▶️ REPRODUCIR VIDEO
+
+function playVideo(id,title){
+
     document.getElementById("home").style.display = "none";
+
     document.getElementById("playerView").style.display = "grid";
 
-    document.getElementById("player").src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    document.getElementById("player").src =
+    `https://www.youtube.com/embed/${id}?autoplay=1`;
+
     document.getElementById("title").innerText = title;
 
     loadSidebar();
+
 }
+
 
 // 📺 SIDEBAR
+
 function loadSidebar(){
+
     const sidebar = document.getElementById("sidebar");
+
     sidebar.innerHTML = "";
 
-    videos.forEach(v => {
+    loadedVideos.forEach(v => {
+
         sidebar.innerHTML += `
-        <div class="side-video" onclick="playVideo('${v.id}','${v.title}')">
-            <div class="side-thumb" style="background-image:url('https://img.youtube.com/vi/${v.id}/mqdefault.jpg')"></div>
-            <div>
-                <h4 style="margin:0;font-size:13px;">${v.title}</h4>
-                <p style="margin:0;font-size:11px;color:#aaa;">${v.channel}</p>
+
+        <div class="side-video"
+        onclick="playVideo('${v.id}', \`${v.title}\`)">
+
+            <div class="side-thumb"
+            style="background-image:url('${v.thumb}')">
             </div>
-        </div>`;
+
+            <div class="side-info">
+
+                <h4>${v.title}</h4>
+
+                <p>${v.channel}</p>
+
+            </div>
+
+        </div>
+
+        `;
+
     });
+
 }
+
+
+// 🔍 BUSCADOR
+
+document.getElementById("searchInput")
+.addEventListener("input",function(){
+
+    const value = this.value.toLowerCase();
+
+    const filtered = loadedVideos.filter(v =>
+
+        v.title.toLowerCase().includes(value) ||
+        v.channel.toLowerCase().includes(value)
+
+    );
+
+    renderVideos(filtered);
+
+});
+
+
+// 🚀 INICIAR
+
+loadVideos();
 
 </script>
 
