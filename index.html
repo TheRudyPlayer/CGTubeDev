@@ -1,125 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>CGTube</title>
 
 <style>
+
 :root{
     --bg:#0f0f0f;
-    --panel:#171717;
-    --card:#1b1b1b;
-    --card2:#202020;
-    --hover:#282828;
-    --text:#f2f2f2;
-    --sub:#a8a8a8;
-    --border:#2a2a2a;
+    --panel:#0f0f0f;
+    --card:#181818;
+    --hover:#272727;
+    --text:#f1f1f1;
+    --sub:#aaaaaa;
+    --border:#303030;
     --accent:#ff0000;
-    --accent2:#f1c40f;
-    --shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
 body.light{
-    --bg:#f5f5f5;
+    --bg:#ffffff;
     --panel:#ffffff;
     --card:#ffffff;
-    --card2:#fafafa;
-    --hover:#ececec;
-    --text:#111111;
-    --sub:#555555;
-    --border:#dddddd;
-    --accent:#e40000;
-    --accent2:#8a6a00;
-    --shadow:0 10px 25px rgba(0,0,0,.08);
+    --hover:#f2f2f2;
+    --text:#0f0f0f;
+    --sub:#606060;
+    --border:#e5e5e5;
+    --accent:#ff0000;
 }
 
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
     background:var(--bg);
     color:var(--text);
-    transition:background .25s ease,color .25s ease;
+    font-family:Arial, Helvetica, sans-serif;
     overflow-x:hidden;
 }
 
-button, input{
-    font:inherit;
-}
+/* SIDEBAR */
 
-/* APP LAYOUT */
-#app{
-    display:flex;
-    min-height:100vh;
-}
-
-/* LEFT NAV */
 .sidebar{
-    width:92px;
+    width:72px;
     background:var(--panel);
     border-right:1px solid var(--border);
-    padding:14px 10px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
+
     position:fixed;
-    inset:0 auto 0 0;
-    z-index:20;
-}
+    top:0;
+    left:0;
+    bottom:0;
 
-.brand{
-    width:100%;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:6px;
-    padding:10px 0 12px;
-    margin-bottom:8px;
-    border-bottom:1px solid var(--border);
+
+    padding-top:8px;
+    z-index:100;
 }
 
-.brand-mark{
-    width:38px;
-    height:38px;
-    border-radius:12px;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(180deg, rgba(255,0,0,.15), rgba(255,0,0,.05));
-    border:1px solid rgba(255,0,0,.25);
-    box-shadow:var(--shadow);
+.logo{
+    width:100%;
+    height:56px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:10px;
 }
 
-.brand-mark svg{
-    width:21px;
-    height:21px;
-    stroke:var(--accent);
-}
-
-.brand span{
-    font-size:12px;
-    font-weight:800;
-    letter-spacing:.4px;
-    color:var(--text);
+.logo svg{
+    width:30px;
+    height:30px;
 }
 
 .nav-btn{
-    width:100%;
+    width:64px;
+    height:74px;
+
     border:none;
     background:transparent;
+
     color:var(--text);
-    border-radius:18px;
-    padding:12px 8px;
-    cursor:pointer;
+
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:7px;
-    transition:.18s ease;
+    justify-content:center;
+
+    gap:6px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:background .15s;
 }
 
 .nav-btn:hover{
@@ -127,386 +107,13 @@ button, input{
 }
 
 .nav-btn.active{
-    background:rgba(255,0,0,.12);
-    box-shadow:inset 0 0 0 1px rgba(255,0,0,.15);
+    background:transparent;
 }
 
 .nav-btn svg{
     width:24px;
     height:24px;
-    stroke:currentColor;
-    fill:none;
-    stroke-width:1.8;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
 
-.nav-btn .label{
-    font-size:11px;
-    color:var(--sub);
-    line-height:1;
-}
-
-.nav-btn.active .label{
-    color:var(--text);
-}
-
-.nav-sep{
-    width:60%;
-    height:1px;
-    background:var(--border);
-    margin:2px 0;
-}
-
-/* CONTENT AREA */
-.workspace{
-    margin-left:92px;
-    width:calc(100% - 92px);
-    min-height:100vh;
-}
-
-/* TOP BAR */
-.topbar{
-    position:sticky;
-    top:0;
-    z-index:15;
-    height:72px;
-    background:rgba(0,0,0,.18);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    padding:0 18px;
-}
-
-.top-left{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    min-width:0;
-}
-
-.logo-text{
-    display:flex;
-    flex-direction:column;
-    line-height:1.05;
-}
-
-.logo-text strong{
-    font-size:19px;
-    letter-spacing:.2px;
-}
-
-.logo-text span{
-    font-size:12px;
-    color:var(--sub);
-}
-
-.search{
-    flex:1;
-    max-width:620px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    background:var(--card2);
-    border:1px solid var(--border);
-    border-radius:999px;
-    padding:11px 16px;
-    box-shadow:var(--shadow);
-}
-
-.search svg{
-    width:18px;
-    height:18px;
-    stroke:var(--sub);
-    fill:none;
-    stroke-width:1.9;
-}
-
-.search input{
-    flex:1;
-    border:none;
-    outline:none;
-    background:transparent;
-    color:var(--text);
-    font-size:14px;
-}
-
-.search input::placeholder{
-    color:var(--sub);
-}
-
-.top-actions{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.small-btn{
-    border:none;
-    background:var(--card2);
-    color:var(--text);
-    border:1px solid var(--border);
-    border-radius:999px;
-    padding:10px 14px;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    transition:.18s ease;
-}
-
-.small-btn:hover{
-    background:var(--hover);
-}
-
-.small-btn svg{
-    width:17px;
-    height:17px;
-    stroke:currentColor;
-    fill:none;
-    stroke-width:1.9;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-
-/* MAIN */
-.main{
-    padding:18px;
-}
-
-.section{
-    margin-bottom:28px;
-}
-
-.section-head{
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    gap:12px;
-    margin:6px 0 14px;
-}
-
-.section-head h2{
-    margin:0;
-    font-size:20px;
-}
-
-.section-head p{
-    margin:0;
-    color:var(--sub);
-    font-size:13px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
-    gap:16px;
-}
-
-.shorts-grid{
-    grid-template-columns:repeat(auto-fill, minmax(170px, 1fr));
-}
-
-.card{
-    cursor:pointer;
-    transition:.18s ease;
-    min-width:0;
-}
-
-.card:hover{
-    transform:translateY(-2px);
-}
-
-.thumb-wrap{
-    position:relative;
-    border-radius:16px;
-    overflow:hidden;
-    background:var(--card2);
-    border:1px solid var(--border);
-    box-shadow:var(--shadow);
-}
-
-.thumb{
-    width:100%;
-    aspect-ratio:16/9;
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    display:block;
-}
-
-.shorts-grid .thumb{
-    aspect-ratio:9/16;
-}
-
-.short-tag{
-    position:absolute;
-    left:10px;
-    top:10px;
-    border-radius:999px;
-    padding:5px 8px;
-    font-size:10px;
-    font-weight:800;
-    background:rgba(255,0,0,.92);
-    color:#fff;
-    letter-spacing:.4px;
-}
-
-.card h3{
-    margin:9px 2px 5px;
-    font-size:14px;
-    line-height:1.38;
-    font-weight:700;
-}
-
-.card p{
-    margin:0 2px;
-    font-size:12px;
-    color:var(--sub);
-    line-height:1.35;
-}
-
-.empty{
-    padding:16px 6px;
-    color:var(--sub);
-    font-size:14px;
-}
-
-/* SETTINGS PANEL */
-.settings-panel{
-    position:fixed;
-    top:72px;
-    left:92px;
-    width:320px;
-    max-width:calc(100vw - 112px);
-    background:var(--panel);
-    border-right:1px solid var(--border);
-    border-bottom:1px solid var(--border);
-    border-radius:0 0 18px 0;
-    box-shadow:var(--shadow);
-    padding:16px;
-    transform:translateX(-120%);
-    opacity:0;
-    pointer-events:none;
-    transition:.22s ease;
-    z-index:18;
-}
-
-.settings-panel.open{
-    transform:translateX(0);
-    opacity:1;
-    pointer-events:auto;
-}
-
-.settings-panel h3{
-    margin:0 0 12px;
-    font-size:16px;
-}
-
-.settings-row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    padding:12px;
-    background:var(--card2);
-    border:1px solid var(--border);
-    border-radius:14px;
-    margin-bottom:10px;
-}
-
-.settings-row strong{
-    font-size:14px;
-}
-
-.settings-row span{
-    display:block;
-    margin-top:4px;
-    font-size:12px;
-    color:var(--sub);
-}
-
-.settings-actions{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin-top:14px;
-}
-
-.action-btn{
-    width:100%;
-    border:none;
-    background:var(--card2);
-    color:var(--text);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:12px 14px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    transition:.18s ease;
-}
-
-.action-btn:hover{
-    background:var(--hover);
-}
-
-.action-btn svg{
-    width:18px;
-    height:18px;
-    stroke:currentColor;
-    fill:none;
-    stroke-width:1.9;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-
-/* PLAYER SCREEN */
-#playerScreen{
-    display:none;
-    min-height:100vh;
-    padding:18px;
-    background:var(--bg);
-}
-
-body.playing #app{
-    display:none;
-}
-
-body.playing #playerScreen{
-    display:block;
-}
-
-.back-btn{
-    position:fixed;
-    top:16px;
-    left:16px;
-    z-index:50;
-    border:none;
-    background:var(--panel);
-    color:var(--text);
-    border:1px solid var(--border);
-    border-radius:999px;
-    padding:11px 16px;
-    cursor:pointer;
-    display:none;
-    align-items:center;
-    gap:9px;
-    box-shadow:var(--shadow);
-}
-
-body.playing .back-btn{
-    display:inline-flex;
-}
-
-.back-btn svg{
-    width:18px;
-    height:18px;
     stroke:currentColor;
     fill:none;
     stroke-width:2;
@@ -514,408 +121,977 @@ body.playing .back-btn{
     stroke-linejoin:round;
 }
 
-.player-layout{
-    max-width:1200px;
-    margin:56px auto 0;
+.nav-btn span{
+    font-size:10px;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:72px;
+    min-height:100vh;
+}
+
+/* TOPBAR */
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:10;
+    height:56px;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 16px;
+}
+
+.top-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.brand svg{
+    width:30px;
+    height:30px;
+}
+
+.brand h1{
+    font-size:20px;
+}
+
+.search{
+    width:50%;
+    max-width:650px;
+
+    display:flex;
+    align-items:center;
+
+    border:1px solid var(--border);
+    border-radius:999px;
+
+    overflow:hidden;
+
+    background:var(--bg);
+}
+
+.search input{
+    flex:1;
+    height:40px;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+    color:var(--text);
+
+    padding:0 14px;
+
+    font-size:15px;
+}
+
+.search button{
+    width:60px;
+    height:40px;
+
+    border:none;
+    border-left:1px solid var(--border);
+
+    background:var(--card);
+
+    cursor:pointer;
+}
+
+.search svg{
+    width:20px;
+    height:20px;
+
+    stroke:var(--text);
+    fill:none;
+    stroke-width:2;
+}
+
+/* CONTENT */
+
+.content{
+    padding:20px;
+}
+
+/* SECTIONS */
+
+.section{
+    margin-bottom:40px;
+}
+
+.section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:18px;
+}
+
+.section-header h2{
+    font-size:20px;
+}
+
+.section-header p{
+    color:var(--sub);
+    font-size:13px;
+}
+
+/* GRID */
+
+.grid{
     display:grid;
-    grid-template-columns:minmax(0,1fr);
-    gap:16px;
+    grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+    gap:18px;
+}
+
+.shorts-grid{
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+}
+
+/* CARD */
+
+.card{
+    cursor:pointer;
+}
+
+.card:hover .thumb{
+    transform:scale(1.01);
+}
+
+.thumb-wrap{
+    overflow:hidden;
+    border-radius:12px;
+    background:#222;
+    position:relative;
+}
+
+.thumb{
+    width:100%;
+    aspect-ratio:16/9;
+
+    background-size:cover;
+    background-position:center;
+
+    transition:transform .2s;
+}
+
+.shorts-grid .thumb{
+    aspect-ratio:9/16;
+}
+
+.short-badge{
+    position:absolute;
+    top:8px;
+    left:8px;
+
+    background:red;
+    color:white;
+
+    font-size:10px;
+    font-weight:bold;
+
+    padding:4px 7px;
+    border-radius:999px;
+}
+
+.card h3{
+    margin:10px 0 4px;
+    font-size:15px;
+    line-height:1.4;
+    font-weight:500;
+}
+
+.card p{
+    margin:0;
+    font-size:13px;
+    color:var(--sub);
+}
+
+/* PLAYER */
+
+.player-screen{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    background:var(--bg);
+
+    z-index:1000;
+
+    overflow-y:auto;
+}
+
+.player-top{
+    height:60px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 15px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.back-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    background:none;
+    border:none;
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    font-size:15px;
+}
+
+.back-btn svg{
+    width:22px;
+    height:22px;
+
+    stroke:currentColor;
+    fill:none;
+    stroke-width:2;
+}
+
+.player-layout{
+    display:grid;
+    grid-template-columns:1fr 380px;
+    gap:25px;
+
+    padding:20px;
 }
 
 .player-box{
-    position:relative;
     width:100%;
     aspect-ratio:16/9;
     background:#000;
-    border-radius:18px;
+    border-radius:12px;
     overflow:hidden;
-    border:1px solid var(--border);
-    box-shadow:var(--shadow);
 }
 
-.player-box.short-mode{
-    width:min(100%, 420px);
+.player-box.short{
+    max-width:420px;
     aspect-ratio:9/16;
-    margin:0 auto;
 }
 
 .player-box iframe{
-    position:absolute;
-    inset:0;
     width:100%;
     height:100%;
     border:none;
 }
 
-.video-meta{
-    max-width:1000px;
-    margin:0 auto;
+.video-info{
+    margin-top:15px;
 }
 
-.badge{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    padding:6px 10px;
-    border-radius:999px;
-    background:rgba(255,0,0,.12);
-    border:1px solid rgba(255,0,0,.2);
-    color:var(--accent2);
-    font-size:12px;
-    font-weight:800;
-    letter-spacing:.3px;
+.video-info h2{
+    font-size:22px;
+    line-height:1.4;
+    margin-bottom:8px;
 }
 
-.video-meta h2{
-    margin:12px 0 8px;
-    font-size:24px;
-    line-height:1.35;
-}
-
-.video-meta p{
-    margin:0;
+.video-info p{
     color:var(--sub);
+}
+
+/* SIDEBAR VIDEOS */
+
+.recommended{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.rec-card{
+    display:flex;
+    gap:10px;
+
+    cursor:pointer;
+}
+
+.rec-thumb{
+    width:168px;
+    aspect-ratio:16/9;
+
+    border-radius:10px;
+
+    background-size:cover;
+    background-position:center;
+
+    flex-shrink:0;
+}
+
+.rec-info h4{
     font-size:14px;
+    line-height:1.3;
+
+    margin-bottom:5px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px){
-    .sidebar{
-        width:82px;
-    }
-
-    .workspace{
-        margin-left:82px;
-        width:calc(100% - 82px);
-    }
-
-    .settings-panel{
-        left:82px;
-    }
-
-    .topbar{
-        padding:0 12px;
-    }
-
-    .logo-text strong{
-        font-size:17px;
-    }
-
-    .search{
-        max-width:none;
-    }
+.rec-info p{
+    font-size:12px;
+    color:var(--sub);
 }
 
-@media (max-width: 760px){
-    .sidebar{
-        width:72px;
-        padding:12px 8px;
-    }
+/* SETTINGS */
 
-    .workspace{
-        margin-left:72px;
-        width:calc(100% - 72px);
-    }
+.settings{
+    position:fixed;
 
-    .settings-panel{
-        left:72px;
-        max-width:calc(100vw - 84px);
-    }
+    top:60px;
+    left:72px;
 
-    .topbar{
-        height:auto;
-        min-height:72px;
-        padding:12px;
-        flex-wrap:wrap;
-    }
+    width:260px;
 
-    .top-left{
-        width:100%;
-    }
+    background:var(--bg);
 
-    .search{
-        order:3;
-        width:100%;
-        max-width:none;
-    }
+    border:1px solid var(--border);
 
-    .top-actions{
-        margin-left:auto;
-    }
+    padding:15px;
 
-    .grid{
-        grid-template-columns:1fr;
-    }
+    display:none;
 
-    .shorts-grid{
-        grid-template-columns:repeat(2, minmax(0,1fr));
-    }
-
-    .player-box.short-mode{
-        width:100%;
-    }
-
-    .video-meta h2{
-        font-size:20px;
-    }
+    z-index:999;
 }
+
+.settings button{
+    width:100%;
+
+    height:40px;
+
+    margin-bottom:10px;
+
+    border:none;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    border-radius:10px;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+.player-layout{
+    grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:700px){
+
+.grid{
+    grid-template-columns:1fr;
+}
+
+.shorts-grid{
+    grid-template-columns:repeat(2,1fr);
+}
+
+.search{
+    width:100%;
+}
+
+.brand h1{
+    display:none;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="app">
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24">
-                    <path d="M4 12.5L12 5l8 7.5"></path>
-                    <path d="M6.5 10.5V19h11V10.5"></path>
-                    <path d="M10 19v-5h4v5"></path>
-                </svg>
-            </div>
-            <span>CGTube</span>
-        </div>
+<!-- SIDEBAR -->
 
-        <button class="nav-btn active" data-view="home" title="Principal">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M3 11.5L12 4l9 7.5"></path>
-                <path d="M5.5 10.5V20h13V10.5"></path>
-                <path d="M10 20v-6h4v6"></path>
-            </svg>
-            <div class="label">Principal</div>
-        </button>
+<div class="sidebar">
 
-        <button class="nav-btn" data-view="shorts" title="Shorts">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M9 5.5l8 4.5-8 4.5"></path>
-                <path d="M15 3.5a3.5 3.5 0 0 1 0 7"></path>
-                <path d="M9 16.5l8 4.5-8 4.5"></path>
-                <path d="M15 13.5a3.5 3.5 0 0 1 0 7"></path>
-            </svg>
-            <div class="label">Shorts</div>
-        </button>
+    <div class="logo">
 
-        <button class="nav-btn" data-view="settings" title="Configuración">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="12" cy="12" r="3.2"></circle>
-                <path d="M12 2.8v2.4"></path>
-                <path d="M12 18.8v2.4"></path>
-                <path d="M4.8 12h2.4"></path>
-                <path d="M16.8 12h2.4"></path>
-                <path d="M6.5 6.5l1.7 1.7"></path>
-                <path d="M15.8 15.8l1.7 1.7"></path>
-                <path d="M17.5 6.5l-1.7 1.7"></path>
-                <path d="M8.2 15.8l-1.7 1.7"></path>
-            </svg>
-            <div class="label">Config</div>
-        </button>
+        <svg viewBox="0 0 24 24">
+            <rect x="2" y="5" width="20" height="14" rx="4" fill="red"/>
+            <polygon points="10,9 16,12 10,15" fill="white"/>
+        </svg>
 
-        <div class="nav-sep"></div>
-
-        <button class="nav-btn" id="randomShortNav" title="Short aleatorio">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 7h5l2 3 2-3h7"></path>
-                <path d="M16 5l2 2-2 2"></path>
-                <path d="M20 17h-5l-2-3-2 3H4"></path>
-                <path d="M8 19l-2-2 2-2"></path>
-            </svg>
-            <div class="label">Random</div>
-        </button>
-    </aside>
-
-    <div class="workspace">
-        <header class="topbar">
-            <div class="top-left">
-                <div class="logo-text">
-                    <strong>CGTube</strong>
-                    <span>Videos, shorts y canales</span>
-                </div>
-            </div>
-
-            <label class="search" aria-label="Buscar videos">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="11" cy="11" r="6.5"></circle>
-                    <path d="M16.2 16.2L21 21"></path>
-                </svg>
-                <input id="searchInput" type="text" placeholder="Buscar en CGTube..." />
-            </label>
-
-            <div class="top-actions">
-                <button class="small-btn" id="settingsToggle" type="button">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="12" r="3.2"></circle>
-                        <path d="M12 2.8v2.4"></path>
-                        <path d="M12 18.8v2.4"></path>
-                        <path d="M4.8 12h2.4"></path>
-                        <path d="M16.8 12h2.4"></path>
-                        <path d="M6.5 6.5l1.7 1.7"></path>
-                        <path d="M15.8 15.8l1.7 1.7"></path>
-                        <path d="M17.5 6.5l-1.7 1.7"></path>
-                        <path d="M8.2 15.8l-1.7 1.7"></path>
-                    </svg>
-                    Ajustes
-                </button>
-            </div>
-        </header>
-
-        <main class="main">
-            <section class="section" id="videosSection">
-                <div class="section-head">
-                    <h2>Videos</h2>
-                    <p id="videosCount">0 videos</p>
-                </div>
-                <div class="grid" id="videosGrid">
-                    <div class="empty">Cargando videos...</div>
-                </div>
-            </section>
-
-            <section class="section" id="shortsSection">
-                <div class="section-head">
-                    <h2>Shorts</h2>
-                    <p id="shortsCount">0 shorts</p>
-                </div>
-                <div class="grid shorts-grid" id="shortsGrid">
-                    <div class="empty">Cargando shorts...</div>
-                </div>
-            </section>
-        </main>
     </div>
 
-    <aside class="settings-panel" id="settingsPanel">
-        <h3>Configuración</h3>
+    <button class="nav-btn active" onclick="showHome()">
 
-        <div class="settings-row">
-            <div>
-                <strong>Tema</strong>
-                <span>Cambia entre claro y oscuro</span>
-            </div>
-            <button class="small-btn" id="themeBtn" type="button">Oscuro</button>
-        </div>
-
-        <div class="settings-actions">
-            <button class="action-btn" id="randomShortBtn" type="button">
-                <span>Reproducir short aleatorio</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 7h5l2 3 2-3h7"></path>
-                    <path d="M16 5l2 2-2 2"></path>
-                    <path d="M20 17h-5l-2-3-2 3H4"></path>
-                    <path d="M8 19l-2-2 2-2"></path>
-                </svg>
-            </button>
-
-            <button class="action-btn" id="closeSettingsBtn" type="button">
-                <span>Cerrar configuración</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M6 6l12 12"></path>
-                    <path d="M18 6L6 18"></path>
-                </svg>
-            </button>
-        </div>
-    </aside>
-</div>
-
-<div id="playerScreen">
-    <button class="back-btn" id="backBtn" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M15 5l-7 7 7 7"></path>
+        <svg viewBox="0 0 24 24">
+            <path d="M3 10L12 3L21 10"/>
+            <path d="M5 9V20H19V9"/>
         </svg>
-        Volver
+
+        <span>Inicio</span>
+
     </button>
 
-    <div class="player-layout">
-        <div>
-            <div class="player-box" id="playerWrapper">
-                <iframe
-                    id="player"
-                    src=""
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+    <button class="nav-btn" onclick="showShorts()">
+
+        <svg viewBox="0 0 24 24">
+            <path d="M8 5L16 9L8 13"/>
+            <path d="M8 11L16 15L8 19"/>
+        </svg>
+
+        <span>Shorts</span>
+
+    </button>
+
+    <button class="nav-btn" onclick="toggleSettings()">
+
+        <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2V5"/>
+            <path d="M12 19V22"/>
+            <path d="M2 12H5"/>
+            <path d="M19 12H22"/>
+        </svg>
+
+        <span>Ajustes</span>
+
+    </button>
+
+</div>
+
+<!-- SETTINGS -->
+
+<div class="settings" id="settings">
+
+    <button onclick="toggleTheme()">
+        Cambiar tema
+    </button>
+
+    <button onclick="randomShort()">
+        Short aleatorio
+    </button>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="top-left">
+
+            <div class="brand">
+
+                <svg viewBox="0 0 24 24">
+                    <rect x="2" y="5" width="20" height="14" rx="4" fill="red"/>
+                    <polygon points="10,9 16,12 10,15" fill="white"/>
+                </svg>
+
+                <h1>CGTube</h1>
+
             </div>
 
-            <div class="video-meta">
-                <div class="badge" id="kindBadge">VIDEO</div>
-                <h2 id="title">Título</h2>
-                <p id="channelName">Canal</p>
-            </div>
         </div>
+
+        <div class="search">
+
+            <input
+            type="text"
+            id="searchInput"
+            placeholder="Buscar">
+
+            <button>
+
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="M20 20L17 17"/>
+                </svg>
+
+            </button>
+
+        </div>
+
     </div>
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+        <!-- VIDEOS -->
+
+        <div class="section" id="videosSection">
+
+            <div class="section-header">
+
+                <h2>Videos</h2>
+
+                <p id="videosCount">0 videos</p>
+
+            </div>
+
+            <div class="grid" id="videosGrid"></div>
+
+        </div>
+
+        <!-- SHORTS -->
+
+        <div class="section" id="shortsSection">
+
+            <div class="section-header">
+
+                <h2>Shorts</h2>
+
+                <p id="shortsCount">0 shorts</p>
+
+            </div>
+
+            <div class="grid shorts-grid" id="shortsGrid"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- PLAYER -->
+
+<div class="player-screen" id="playerScreen">
+
+    <div class="player-top">
+
+        <button class="back-btn" onclick="closePlayer()">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M15 5L8 12L15 19"/>
+            </svg>
+
+            Volver
+
+        </button>
+
+    </div>
+
+    <div class="player-layout">
+
+        <div>
+
+            <div class="player-box" id="playerBox">
+
+                <iframe
+                id="player"
+                allowfullscreen
+                allow="autoplay">
+                </iframe>
+
+            </div>
+
+            <div class="video-info">
+
+                <h2 id="videoTitle"></h2>
+
+                <p id="videoChannel"></p>
+
+            </div>
+
+        </div>
+
+        <div class="recommended" id="recommended"></div>
+
+    </div>
+
 </div>
 
 <script>
+
 const rawItems = [
-    "https://www.youtube.com/watch?v=HE1Yn_H4YpI",
-    "https://www.youtube.com/watch?v=hLSAKlDYpKQ",
-    "https://www.youtube.com/watch?v=DLskuafhcsg"
-    // Puedes agregar shorts así:
-    // "https://www.youtube.com/shorts/ID_DEL_SHORT"
+
+"https://www.youtube.com/watch?v=HE1Yn_H4YpI",
+
+"https://www.youtube.com/watch?v=hLSAKlDYpKQ",
+
+"https://www.youtube.com/watch?v=DLskuafhcsg"
+
+// SHORTS:
+// "https://www.youtube.com/shorts/ID"
+
 ];
 
-const state = {
-    view: "home",
-    search: "",
-    current: null,
-    settingsOpen: false
-};
-
 let library = [];
+let currentMode = "all";
 
-const els = {
-    app: document.getElementById("app"),
-    playerScreen: document.getElementById("playerScreen"),
-    player: document.getElementById("player"),
-    playerWrapper: document.getElementById("playerWrapper"),
-    title: document.getElementById("title"),
-    channelName: document.getElementById("channelName"),
-    kindBadge: document.getElementById("kindBadge"),
-    backBtn: document.getElementById("backBtn"),
-    searchInput: document.getElementById("searchInput"),
-    videosSection: document.getElementById("videosSection"),
-    shortsSection: document.getElementById("shortsSection"),
-    videosGrid: document.getElementById("videosGrid"),
-    shortsGrid: document.getElementById("shortsGrid"),
-    videosCount: document.getElementById("videosCount"),
-    shortsCount: document.getElementById("shortsCount"),
-    sidebarButtons: [...document.querySelectorAll(".nav-btn[data-view]")],
-    settingsPanel: document.getElementById("settingsPanel"),
-    settingsToggle: document.getElementById("settingsToggle"),
-    themeBtn: document.getElementById("themeBtn"),
-    randomShortBtn: document.getElementById("randomShortBtn"),
-    closeSettingsBtn: document.getElementById("closeSettingsBtn"),
-    randomShortNav: document.getElementById("randomShortNav")
-};
+/* EXTRACT ID */
 
-function escapeHTML(str = "") {
-    return String(str)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#39;");
+function getVideoId(url){
+
+if(!url.includes("youtube") &&
+   !url.includes("youtu.be")){
+
+    return url;
+
 }
 
-function getVideoId(input) {
-    const text = String(input || "").trim();
-    if (!text) return null;
+try{
 
-    if (!text.includes("youtube.com") && !text.includes("youtu.be")) {
-        return text;
-    }
+const u = new URL(url);
 
-    try {
-        const url = new URL(text);
+if(u.searchParams.get("v")){
 
-        if (url.hostname.includes("youtu.be")) {
-            const parts = url.pathname.split("/").filter(Boolean);
-            return parts[0] || null;
-        }
+    return u.searchParams.get("v");
 
-        const v = url.searchParams.get("v");
-        if (v) return v;
+}
 
-        const parts = url.pathname.split("/").filter(Boolean);
+if(url.includes("/shorts/")){
 
-        const shortIndex = parts.indexOf("shorts");
-        if (shortIndex !== -1 && parts[shortIndex + 1]) return parts[shortIndex + 1];
-    
+    return url.split("/shorts/")[1].split("?")[0];
+
+}
+
+if(url.includes("youtu.be/")){
+
+    return url.split("youtu.be/")[1].split("?")[0];
+
+}
+
+}catch{}
+
+return null;
+
+}
+
+/* IS SHORT */
+
+function isShort(url){
+
+return url.includes("/shorts/");
+
+}
+
+/* FETCH */
+
+async function fetchVideo(raw){
+
+const id = getVideoId(raw);
+
+const type = isShort(raw) ? "short" : "video";
+
+let title = "Video";
+let channel = "Canal";
+
+try{
+
+const res = await fetch(
+`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${id}`
+);
+
+const data = await res.json();
+
+title = data.title || title;
+channel = data.author_name || channel;
+
+}catch{}
+
+return{
+
+id,
+title,
+channel,
+type,
+thumb:`https://img.youtube.com/vi/${id}/hqdefault.jpg`
+
+};
+
+}
+
+/* LOAD */
+
+async function load(){
+
+library = [];
+
+for(const item of rawItems){
+
+const data = await fetchVideo(item);
+
+library.push(data);
+
+}
+
+render();
+
+}
+
+/* RENDER */
+
+function render(){
+
+const videosGrid =
+document.getElementById("videosGrid");
+
+const shortsGrid =
+document.getElementById("shortsGrid");
+
+videosGrid.innerHTML = "";
+shortsGrid.innerHTML = "";
+
+const videos =
+library.filter(v=>v.type==="video");
+
+const shorts =
+library.filter(v=>v.type==="short");
+
+document.getElementById("videosCount")
+.innerText = videos.length + " videos";
+
+document.getElementById("shortsCount")
+.innerText = shorts.length + " shorts";
+
+videos.forEach(v=>{
+
+videosGrid.innerHTML += cardHTML(v);
+
+});
+
+shorts.forEach(v=>{
+
+shortsGrid.innerHTML += cardHTML(v);
+
+});
+
+}
+
+/* CARD */
+
+function cardHTML(v){
+
+return `
+<div class="card"
+onclick="playVideo('${v.id}')">
+
+<div class="thumb-wrap">
+
+<div class="thumb"
+style="background-image:url('${v.thumb}')">
+</div>
+
+${v.type==="short"
+? `<div class="short-badge">SHORTS</div>`
+: ""}
+
+</div>
+
+<h3>${v.title}</h3>
+
+<p>${v.channel}</p>
+
+</div>
+`;
+
+}
+
+/* PLAY */
+
+function playVideo(id){
+
+const item =
+library.find(v=>v.id===id);
+
+if(!item) return;
+
+document.getElementById("playerScreen")
+.style.display = "block";
+
+const box =
+document.getElementById("playerBox");
+
+if(item.type === "short"){
+
+box.classList.add("short");
+
+document.getElementById("player").src =
+`https://www.youtube.com/embed/${item.id}?autoplay=1&loop=1`;
+
+}else{
+
+box.classList.remove("short");
+
+document.getElementById("player").src =
+`https://www.youtube.com/embed/${item.id}?autoplay=1`;
+
+}
+
+document.getElementById("videoTitle")
+.innerText = item.title;
+
+document.getElementById("videoChannel")
+.innerText = item.channel;
+
+loadRecommended(id);
+
+}
+
+/* CLOSE */
+
+function closePlayer(){
+
+document.getElementById("playerScreen")
+.style.display = "none";
+
+document.getElementById("player").src = "";
+
+}
+
+/* RECOMMENDED */
+
+function loadRecommended(current){
+
+const rec =
+document.getElementById("recommended");
+
+rec.innerHTML = "";
+
+library
+.filter(v=>v.id!==current)
+.forEach(v=>{
+
+rec.innerHTML += `
+<div class="rec-card"
+onclick="playVideo('${v.id}')">
+
+<div class="rec-thumb"
+style="background-image:url('${v.thumb}')">
+</div>
+
+<div class="rec-info">
+
+<h4>${v.title}</h4>
+
+<p>${v.channel}</p>
+
+</div>
+
+</div>
+`;
+
+});
+
+}
+
+/* SETTINGS */
+
+function toggleSettings(){
+
+const s =
+document.getElementById("settings");
+
+s.style.display =
+s.style.display==="block"
+? "none"
+: "block";
+
+}
+
+/* THEME */
+
+function toggleTheme(){
+
+document.body.classList.toggle("light");
+
+}
+
+/* SHORT RANDOM */
+
+function randomShort(){
+
+const shorts =
+library.filter(v=>v.type==="short");
+
+if(shorts.length===0){
+
+alert("No hay shorts");
+
+return;
+
+}
+
+const random =
+shorts[Math.floor(Math.random()*shorts.length)];
+
+playVideo(random.id);
+
+}
+
+/* HOME */
+
+function showHome(){
+
+document.getElementById("videosSection")
+.style.display = "block";
+
+document.getElementById("shortsSection")
+.style.display = "block";
+
+}
+
+/* SHORTS */
+
+function showShorts(){
+
+document.getElementById("videosSection")
+.style.display = "none";
+
+document.getElementById("shortsSection")
+.style.display = "block";
+
+}
+
+/* SEARCH */
+
+document.getElementById("searchInput")
+.addEventListener("input",function(){
+
+const value =
+this.value.toLowerCase();
+
+const cards =
+document.querySelectorAll(".card");
+
+cards.forEach(card=>{
+
+const text =
+card.innerText.toLowerCase();
+
+card.style.display =
+text.includes(value)
+? "block"
+: "none";
+
+});
+
+});
+
+load();
+
+</script>
+
+</body>
+    </html>
